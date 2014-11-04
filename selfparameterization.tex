@@ -1,0 +1,63 @@
+\subsection{Self-Parameterization}
+
+Two different approaches about the algorithm parameter setting exist in EC: {\em parameter control} and {\em parameter tuning} \cite{ParameterControlEiben99}. The first one refers to setting up a number of parameters of the Evolutionary Algorithm (EA) and changing these parameters in running time. The parameter tuning consist in establishing a good set of parameters {\em before} the run (and do not change these parameters during runtime).
+
+Eiben, in \cite{ParameterControlEiben07} proposes the next taxonomy for the parameter control, according {\em how} are changes made:
+\begin{itemize}
+\item Deterministic methods: changes in parameter are triggered by a deterministic rule (for example, increase mutation rate after certain number of generations).
+\item Adaptative methods: parameters change depending some behaviour (for example, increase mutation rate if the WHAT)
+\item Self-adaptative methods: parameters are encoded in the chromosome of the individuals of the population (for example, mutation rate is a value in the chromosome).
+\end{itemize}
+
+Other classifications for control techniques in EAs are presented in that work. For example, regarding to {\em what} is changed:
+\begin{itemize}
+\item Representation
+\item Evaluation function
+\item Variation of operators and their rates
+\item Selection operators
+\item Replacement operator
+\item Population
+\end{itemize}
+
+Finally, a third classification can be obtained according what evidence is available:
+\begin{itemize}
+\item Absolute evidence: The parameter changes if a rule is activated if an specific event occurs. For example: increase mutation rate when diversity drops. Human knowledge is necessary.
+\item Relative evidence: Parameters are compared with the fitness of their produced offspring and the best values are rewarded. It is not deterministic.
+\end{itemize}
+
+A generic control mechanism that combines parameter control and parameter tuning is presented in \cite{GenericApproachKarafotias12}. It is formed by the next elements:
+\begin{itemize}
+\item Parameter selection: which parameters will be controlled: numeric (for example, crossover rate) or simbolic (recombination operator type).
+\item A set of observables: will be inputs for the next element. The {\em Source} is the state of the algorithm (population, actual parameters, fitness), that can be converted to the {\em Digest} (for example, best fitness, or population diversity). This digest can be converted to a Derivative (for example, acceleration of the changes) or keep a {\em History} of the previous values.
+\item Algorithm to map observables to parameter values. For example, an Artificial Neural Network (ANN).
+\end{itemize}
+
+\subsubsection{Self-adaptation vs. self-parameterization}
+
+Self-adaptation usually defines the concept of incorporate strategy parameters into the indvidiual's genome and evolving them alongside the object parameters \cite{SelfAdaptationMeyer07}. TERMINAR ESTA SECCION
+
+
+
+\subsubsection{Mutation rate}
+
+As an example of aplication of the generic control mechanism previously explained, in \cite{GenericApproachKarafotias12} compared different combination of observables and mapping algorithms in a (10+$\mu$) ES. They used as observables several combinations formed by the $\sigma$, the Population Diversity Index, the best fitness and historic fitness. The control method was a NN with three different activation functions. They concluded that using as observables the best fitness, or the combination of historic fitness and $\sigma$ outperformed the tuned parameters for  most of the problems.
+
+In \cite{MutationSerpell10} a complete study of self-adaptation of mutation in a GA was performed. Static rates were compared with different techniques to self-adapt the choice of the mutation rate and the mutation operators, including the information inside the chromosome of each individual. The benchmark problem used was the TSP. Different experiments were run to study the sensibility to the method to change the mutation rate. Also, a comparison of discrete methods, number of different mutation rates, length of rates or the values of permutation probability were studied. The results shows that all self-adapative GAs attained comparable or better results than static GAs. Also, they claim that the self-adaptation of the mutation rate takes precedence over the self-adaptation of the mutation operator.
+
+In \cite{MutationDiffEvoPedrosa11} the authors propose self-adaptation of the parameters F and CR with multiple mutation strategies in Differential Evolution, compared with other self-adaptative versions available in the literature.
+
+\subsection{Fitness function}
+Parameter of fitness function also can be added into individual's genome. For example, in \cite{SelfAdaptingFitnessDinu13} the time for evaluation of a robot in an on-line algorithm is encoded as a parameter in the individual.
+
+
+
+
+\subsubsection{Population size}
+
+In \cite{FateBim10} authors present an evolutionary algorithm formed by the solution individuals ({\em solution agents}) together evolutionary operator individuals ({\em destiny agents}). These operator individuals (called Cupids, Reapers or Breeder) manage the solution agents and also other destiny agents, creating or deleting the two different types of individuals. The benchmark used is BBOB2012, and the results show that this system works with every type of problem of the benchmark. Population size converges and remains fixed during all the evolution.
+
+In \cite{SelectionPressureEiben06} authors analyze the effect of (self-)adapting selection operators and the population size in an EA. They design and execute experiments for comparing the performance increase of a benchmark EA when augmented with self-adaptive control of parameters concerning selection and population size in isolation and in combination. It has been observed that self-adapting selection yields the highest benefit. 
+
+\subsubsection{Migration}
+
+Self-adaptation of migration can be performed in several ways. For example, \cite{SelfOrganizedPopulationFeng12} presents a parallel island model that uses topology information and individual distances to reject some individuals (immigrants or natives) in order to self-organize the whole population across the search space of the problem. Global and local optima are found and maintained using only the local information to each island and its local neighbours.
